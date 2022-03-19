@@ -44,6 +44,7 @@ class Expositor(models.Model):
     carrera = models.CharField(max_length=100)
     last_update = models.DateTimeField()
 
+
     class Meta:
         managed = False
         db_table = 'expositor'
@@ -55,6 +56,7 @@ class Imagenes(models.Model):
     descripcion = models.TextField()
     url = models.CharField(max_length=255)
     last_update = models.DateTimeField()
+    expositor = models.ForeignKey(Expositor, models.DO_NOTHING, null=True)
 
     class Meta:
         managed = False
