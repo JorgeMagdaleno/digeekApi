@@ -96,7 +96,7 @@ class DigeekAApi(APIView):
         return JsonResponse("Deleted Successfully", safe=False)
 
 
-@csrf_exempt
+
 class EventosApi(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -123,7 +123,7 @@ class EventosApi(APIView):
         return JsonResponse("Failed to Update")
 
 
-@csrf_exempt
+
 class EventosAApi(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -138,7 +138,7 @@ class EventosAApi(APIView):
         return JsonResponse("Deleted Successfully", safe=False)
 
 
-@csrf_exempt
+
 class ExpositorApi(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -165,7 +165,7 @@ class ExpositorApi(APIView):
         return JsonResponse("Failed to Update")
 
 
-@csrf_exempt
+
 class ExpositorAApi(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -180,7 +180,7 @@ class ExpositorAApi(APIView):
         return JsonResponse("Deleted Successfully", safe=False)
 
 
-@csrf_exempt
+
 class RedesSocialesApi(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -207,7 +207,7 @@ class RedesSocialesApi(APIView):
         return JsonResponse("Failed to Update")
 
 
-@csrf_exempt
+
 class RedesSocialesAApi(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -222,7 +222,7 @@ class RedesSocialesAApi(APIView):
         return JsonResponse("Deleted Successfully", safe=False)
 
 
-@csrf_exempt
+
 class VisitanteApi(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -249,7 +249,7 @@ class VisitanteApi(APIView):
         return JsonResponse("Failed to Update")
 
 
-@csrf_exempt
+
 class VisitanteAApi(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -264,7 +264,7 @@ class VisitanteAApi(APIView):
         return JsonResponse("Deleted Successfully", safe=False)
 
 
-@csrf_exempt
+
 class RegistroDigeekApi(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -291,7 +291,7 @@ class RegistroDigeekApi(APIView):
         return JsonResponse("Failed to Update")
 
 
-@csrf_exempt
+
 class RegistroDigeekAApi(APIView):
     permission_classes = (IsAuthenticated,)
 
