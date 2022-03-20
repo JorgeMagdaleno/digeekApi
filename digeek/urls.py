@@ -5,6 +5,7 @@ from digeek import views
 urlpatterns = [
     re_path(r'^imagen$', views.ImagenApi.as_view(), name='imagen'),
     re_path(r'^imagen/([0-9]+)$', views.ImagenAApi.as_view()),
+    re_path(r'^imagenByExpositor/([0-9]+)$', views.ImagenAApiByExpositor.as_view()),
     re_path(r'^digeek$', views.DigeekApi.as_view()),
     re_path(r'^digeek/([0-9]+)$', views.DigeekAApi.as_view()),
     re_path(r'^evento$', views.EventosApi.as_view()),

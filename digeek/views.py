@@ -56,6 +56,15 @@ class ImagenAApi(APIView):
         return JsonResponse("Deleted Successfully", safe=False)
 
 
+class ImagenAApiByExpositor(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, id=0):
+        imagen = Imagenes.objects.get(expositor=id)
+        my_serializer = ImagenesSerializer(imagen)
+        return JsonResponse(my_serializer.data, safe=False)
+
+
 class DigeekApi(APIView):
     permission_classes = (IsAuthenticated,)
 
