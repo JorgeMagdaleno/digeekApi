@@ -60,7 +60,7 @@ class ImagenAApiByExpositor(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, id=0):
-        imagen = Imagenes.objects.filter(expositor=id)
+        imagen = Imagenes.objects.select_related().filter(expositor = id)
         my_serializer = ImagenesSerializer(imagen)
         return JsonResponse(my_serializer.data, safe=False)
 
