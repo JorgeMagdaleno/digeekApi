@@ -146,7 +146,13 @@ class EventosAApi(APIView):
         evento.delete()
         return JsonResponse("Deleted Successfully", safe=False)
 
+class EventosAApiMasterclass(APIView):
+    permission_classes = (IsAuthenticated,)
 
+    def get(self, request):
+        evento = Eventos.objects.get(tipo = "Masterclass")
+        my_serializer = EventosSerializer(evento, many =True)
+        return JsonResponse(my_serializer.data, safe=False)
 
 class ExpositorApi(APIView):
     permission_classes = (IsAuthenticated,)

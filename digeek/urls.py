@@ -10,6 +10,7 @@ urlpatterns = [
     re_path(r'^digeek/([0-9]+)$', views.DigeekAApi.as_view()),
     re_path(r'^evento$', views.EventosApi.as_view()),
     re_path(r'^evento/([0-9]+)$', views.EventosAApi.as_view()),
+    re_path(r'^eventoMasterclass$', views.EventosAApiMasterclass.as_view()),
     re_path(r'^expositor$', views.ExpositorApi.as_view()),
     re_path(r'^expositor/([0-9]+)$', views.ExpositorAApi.as_view()),
     re_path(r'^redessociales$', views.RedesSocialesApi.as_view()),
