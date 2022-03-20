@@ -150,7 +150,7 @@ class EventosAApiMasterclass(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        evento = Eventos.objects.get(tipo = "Masterclass")
+        evento = Eventos.objects.filter(tipo = "Masterclass")
         my_serializer = EventosSerializer(evento, many =True)
         return JsonResponse(my_serializer.data, safe=False)
 
