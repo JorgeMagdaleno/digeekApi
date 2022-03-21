@@ -1,6 +1,9 @@
+from django.db import transaction, DatabaseError
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
+
+from digeek.models import RegistroDigeek
 from digeek.serializers import *
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -8,13 +11,27 @@ from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 class RegistrarVisitanteBien(APIView):
-    def post(self,request):
+
+    @transaction.atomic
+    def post(self, request):
         my_data = JSONParser().parse(request)
-        my_serializer = ImagenesSerializer(data=my_data)
-        if my_serializer.is_valid():
-            my_serializer.save()
-            return JsonResponse("Se añadio correctamente", safe=False)
-        return JsonResponse("No se pudo añadir", safe=False)
+        my_serializer1 = VisitanteSerializer(data=my_data["visitante"])
+
+        try:
+            if my_serializer1.is_valid():
+                visitante = my_serializer1.save()
+
+                registro = RegistroDigeek(
+                    digeek=my_data["registro"]["digeek"],
+                    visitante=visitante.pk,
+                    eventos=my_data["registro"]["eventos"],
+                    last_update=my_data["registro"]["last_update"]
+                )
+                registro.save()
+                return JsonResponse("Se añadio correctamente", safe=False)
+        except DatabaseError:
+            return JsonResponse("No se pudo añadir", safe=False)
+
 
 class ImagenApi(APIView):
     permission_classes = (IsAuthenticated,)
@@ -60,7 +77,7 @@ class ImagenAApiByExpositor(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, id=0):
-        imagen = Imagenes.objects.select_related().filter(expositor = id)
+        imagen = Imagenes.objects.select_related().filter(expositor=id)
         my_serializer = ImagenesSerializer(imagen, many=True)
         return JsonResponse(my_serializer.data, safe=False)
 
@@ -105,7 +122,6 @@ class DigeekAApi(APIView):
         return JsonResponse("Deleted Successfully", safe=False)
 
 
-
 class EventosApi(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -132,7 +148,6 @@ class EventosApi(APIView):
         return JsonResponse("Failed to Update")
 
 
-
 class EventosAApi(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -146,13 +161,15 @@ class EventosAApi(APIView):
         evento.delete()
         return JsonResponse("Deleted Successfully", safe=False)
 
+
 class EventosAApiMasterclass(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        evento = Eventos.objects.filter(tipo = "Masterclass")
-        my_serializer = EventosSerializer(evento, many =True)
+        evento = Eventos.objects.filter(tipo="Masterclass")
+        my_serializer = EventosSerializer(evento, many=True)
         return JsonResponse(my_serializer.data, safe=False)
+
 
 class ExpositorApi(APIView):
     permission_classes = (IsAuthenticated,)
@@ -180,7 +197,6 @@ class ExpositorApi(APIView):
         return JsonResponse("Failed to Update")
 
 
-
 class ExpositorAApi(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -193,7 +209,6 @@ class ExpositorAApi(APIView):
         expositor = Expositor.objects.get(expositorid=id)
         expositor.delete()
         return JsonResponse("Deleted Successfully", safe=False)
-
 
 
 class RedesSocialesApi(APIView):
@@ -222,7 +237,6 @@ class RedesSocialesApi(APIView):
         return JsonResponse("Failed to Update")
 
 
-
 class RedesSocialesAApi(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -235,7 +249,6 @@ class RedesSocialesAApi(APIView):
         redes_sociales = RedesSociales.objects.get(redes_socialesid=id)
         redes_sociales.delete()
         return JsonResponse("Deleted Successfully", safe=False)
-
 
 
 class VisitanteApi(APIView):
@@ -264,7 +277,6 @@ class VisitanteApi(APIView):
         return JsonResponse("Failed to Update")
 
 
-
 class VisitanteAApi(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -277,7 +289,6 @@ class VisitanteAApi(APIView):
         visitante = Visitante.objects.get(visitanteid=id)
         visitante.delete()
         return JsonResponse("Deleted Successfully", safe=False)
-
 
 
 class RegistroDigeekApi(APIView):
@@ -304,7 +315,6 @@ class RegistroDigeekApi(APIView):
             my_serializer.save()
             return JsonResponse("Updated Successfully", safe=False)
         return JsonResponse("Failed to Update")
-
 
 
 class RegistroDigeekAApi(APIView):

@@ -19,4 +19,5 @@ urlpatterns = [
     re_path(r'^visitante/([0-9]+)$', views.VisitanteAApi.as_view()),
     re_path(r'^registrodigeek$', views.RegistroDigeekApi.as_view()),
     re_path(r'^registrodigeek/(?P<digeekid>[0-9]+)/(?P<visitanteid>[0-9]+)$', views.RegistroDigeekAApi.as_view()),
+    re_path(r'^registrodigeekInsert$', views.RegistrarVisitanteBien.as_view()),
 ]
