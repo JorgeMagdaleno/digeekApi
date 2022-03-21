@@ -80,6 +80,7 @@ class RegistroDigeek(models.Model):
     visitante = models.OneToOneField('Visitante', models.DO_NOTHING, primary_key=True)
     eventos = models.ForeignKey(Eventos, models.DO_NOTHING)
     last_update = models.DateTimeField()
+    presencial = models.BooleanField(default=False)
 
     class Meta:
         managed = False
