@@ -20,11 +20,12 @@ class RegistrarVisitanteBien(APIView):
         try:
             if my_serializer1.is_valid():
                 visitante = my_serializer1.save()
-
+                digeekObj  = Digeek(digeekid=my_data["registro"]["digeek"])
+                eventosObj = Eventos(eventosid=my_data["registro"]["eventos"])
                 registro = RegistroDigeek(
-                    digeek=my_data["registro"]["digeek"],
-                    visitante=visitante.pk,
-                    eventos=my_data["registro"]["eventos"],
+                    digeek=digeekObj,
+                    visitante=visitante,
+                    eventos=eventosObj,
                     last_update=my_data["registro"]["last_update"]
                 )
                 registro.save()
