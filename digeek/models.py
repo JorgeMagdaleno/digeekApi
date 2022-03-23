@@ -43,7 +43,7 @@ class Expositor(models.Model):
     autobiografia = models.TextField()
     carrera = models.CharField(max_length=100)
     last_update = models.DateTimeField()
-
+    empresa = models.CharField(max_length=100)
 
     class Meta:
         managed = False
