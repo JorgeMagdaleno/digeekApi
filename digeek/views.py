@@ -190,7 +190,7 @@ class EventosApi(APIView):
 
     def put(self, request):
         my_data = JSONParser().parse(request)
-        evento = Eventos.objects.get(eventoid=my_data['eventoid'])
+        evento = Eventos.objects.get(eventosid=my_data['eventoid'])
         my_serializer = EventosSerializer(evento, data=my_data)
         if my_serializer.is_valid():
             my_serializer.save()
@@ -201,7 +201,7 @@ class EventosApi(APIView):
 class EventosAApiGet(APIView):
 
     def get(self, request, id=0):
-        evento = Eventos.objects.get(eventoid=id)
+        evento = Eventos.objects.get(eventosid=id)
         my_serializer = EventosSerializer(evento)
         return JsonResponse(my_serializer.data, safe=False)
 
@@ -210,12 +210,12 @@ class EventosAApi(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, id=0):
-        evento = Eventos.objects.get(eventoid=id)
+        evento = Eventos.objects.get(eventosid=id)
         my_serializer = EventosSerializer(evento)
         return JsonResponse(my_serializer.data, safe=False)
 
     def delete(self, request, id=0):
-        evento = Eventos.objects.get(eventoid=id)
+        evento = Eventos.objects.get(eventosid=id)
         evento.delete()
         return JsonResponse("Deleted Successfully", safe=False)
 
