@@ -301,6 +301,14 @@ class RedesSocialesApiGet(APIView):
         return JsonResponse(my_serializer.data, safe=False)
 
 
+class RedesSocialesApiByExpositorGet(APIView):
+
+    def get(self, request, id=0):
+        redes_sociales = RedesSociales.objects.select_related().filter(expositor=id)
+        my_serializer = RedesSocialesSerializer(redes_sociales, many=True)
+        return JsonResponse(my_serializer.data, safe=False)
+
+
 class RedesSocialesApi(APIView):
     permission_classes = (IsAuthenticated,)
 

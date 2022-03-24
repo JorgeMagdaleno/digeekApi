@@ -15,6 +15,7 @@ urlpatterns = [
     re_path(r'^expositor/([0-9]+)$', views.ExpositorAApiGet.as_view()),
     re_path(r'^redessociales$', views.RedesSocialesApiGet.as_view()),
     re_path(r'^redessociales/([0-9]+)$', views.RedesSocialesAApiGet.as_view()),
+    re_path(r'^redessocialesByExpositor/([0-9]+)$', views.RedesSocialesApiByExpositorGet.as_view()),
     re_path(r'^visitante$', views.VisitanteApiGet.as_view()),
     re_path(r'^visitante/([0-9]+)$', views.VisitanteAApiGet.as_view()),
     re_path(r'^registrodigeek$', views.RegistroDigeekApiGet.as_view()),
