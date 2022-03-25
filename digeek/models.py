@@ -95,7 +95,7 @@ class Visitante(models.Model):
     edad = models.IntegerField()
     proviene_de = models.CharField(max_length=100)
     matricula = models.CharField(max_length=7, blank=True, null=True)
-    url_comprobante_pago = models.ImageField(upload_to='media/', blank=True, null=True)
+    url_comprobante_pago = models.CharField(max_length=255, blank=True, null=True)
     last_update = models.DateTimeField()
 
     class Meta:
