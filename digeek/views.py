@@ -3,7 +3,7 @@ from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 
-from digeek.models import RegistroDigeek
+from digeek.models import images
 from digeek.serializers import *
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -15,8 +15,8 @@ class RegistrarVisitanteBien(APIView):
     @transaction.atomic
     def post(self, request):
         my_data = JSONParser().parse(request)
-        my_serializer1 = VisitanteSerializer(data=my_data["visitante"])
 
+        my_serializer1 = VisitanteSerializer(data=my_data["visitante"])
         try:
             if my_serializer1.is_valid():
                 visitante = my_serializer1.save()
@@ -467,3 +467,5 @@ class RegistroDigeekAApi(APIView):
         registro_digeek = RegistroDigeek.objects.get(digeek=digeekid, visitante=visitanteid)
         registro_digeek.delete()
         return JsonResponse("Deleted Successfully", safe=False)
+
+
