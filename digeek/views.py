@@ -2,7 +2,7 @@ from django.db import transaction, DatabaseError
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
-from rest_framework.parsers import JSONParser
+from rest_framework.parsers import JSONParser, FormParser, MultiPartParser
 from rest_framework.response import Response
 
 from digeek.serializers import *
@@ -11,7 +11,20 @@ from rest_framework.permissions import IsAuthenticated
 
 
 # Create your views here.
+class CreatePost(APIView):
+    parser_classes = [MultiPartParser, FormParser]
+
+    def post(self, request, format=None):
+        print(request.data)
+        serializer = VisitanteSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class RegistrarVisitanteBien(APIView):
+
 
     @transaction.atomic
     def post(self, request):
