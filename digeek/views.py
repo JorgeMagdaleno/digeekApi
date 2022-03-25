@@ -14,7 +14,7 @@ from rest_framework.permissions import IsAuthenticated
 class CreatePost(APIView):
 
     def post(self, request):
-        print(request.data)
+
         my_data = JSONParser().parse(request)
         serializer = VisitanteSerializer(data=my_data.data)
         if serializer.is_valid():
