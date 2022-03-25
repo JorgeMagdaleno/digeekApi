@@ -12,11 +12,11 @@ from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 class CreatePost(APIView):
+    parser_classes = [MultiPartParser, FormParser]
 
-    def post(self, request):
-
-        my_data = JSONParser().parse(request)
-        serializer = VisitanteSerializer(data=my_data.data)
+    def post(self, request, format=None):
+        print(request.data)
+        serializer = VisitanteSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
