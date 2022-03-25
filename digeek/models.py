@@ -7,6 +7,9 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
+def upload_to(instance, filename):
+    return f'imagen/{filename}'.format(filename=filename)
+
 
 class Digeek(models.Model):
     digeekid = models.AutoField(primary_key=True)
@@ -97,7 +100,7 @@ class Visitante(models.Model):
     matricula = models.CharField(max_length=7, blank=True, null=True)
     url_comprobante_pago = models.CharField(max_length=255, blank=True, null=True)
     last_update = models.DateTimeField()
-    url_imagen = models.ImageField(upload_to="uploads/% Y/% m/% d/", blank=True, null=True)
+    url_imagen = models.ImageField(upload_to=upload_to, blank=True, null=True, default='imagen/default.jpg')
 
     class Meta:
         managed = False
