@@ -2,8 +2,6 @@ from django.db import transaction, DatabaseError
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
-
-from digeek.models import images
 from digeek.serializers import *
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
