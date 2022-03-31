@@ -386,6 +386,7 @@ class RedesSocialesAApi(APIView):
 
 
 class VisitanteApiGet(APIView):
+    permission_classes = (IsAuthenticated,)
 
     def get(self, request):
         visitante = Visitante.objects.all()
@@ -420,7 +421,7 @@ class VisitanteApi(APIView):
 
 
 class VisitanteAApiGet(APIView):
-
+    permission_classes = (IsAuthenticated,)
     def get(self, request, id=0):
         visitante = Visitante.objects.get(visitanteid=id)
         my_serializer = VisitanteSerializer(visitante)
@@ -442,7 +443,7 @@ class VisitanteAApi(APIView):
 
 
 class RegistroDigeekApiGet(APIView):
-
+    permission_classes = (IsAuthenticated,)
     def get(self, request):
         registro_digeek = RegistroDigeek.objects.all()
         my_serializer = RegistroDigeekSerializer(registro_digeek, many=True)
@@ -476,7 +477,7 @@ class RegistroDigeekApi(APIView):
 
 
 class RegistroDigeekAApiGet(APIView):
-
+    permission_classes = (IsAuthenticated,)
     def get(self, request, digeekid=0, visitanteid=0):
         registro_digeek = RegistroDigeek.objects.get(digeek=digeekid, visitante=visitanteid)
         my_serializer = RegistroDigeekSerializer(registro_digeek)
