@@ -101,6 +101,7 @@ class Visitante(models.Model):
     url_comprobante_pago = models.CharField(max_length=255, blank=True, null=True)
     last_update = models.DateTimeField()
     url_imagen = models.ImageField(upload_to=upload_to, blank=True, null=True, default='imagen/default.jpg')
+    email = models.CharField(max_length=100)
 
     class Meta:
         managed = False
