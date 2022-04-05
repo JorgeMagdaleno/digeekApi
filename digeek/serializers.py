@@ -1,6 +1,10 @@
 from rest_framework import serializers
-from digeek.models import Imagenes,Eventos,Digeek,Expositor,RedesSociales,RegistroDigeek,Visitante
+from digeek.models import Imagenes,Eventos,Digeek,Expositor,RedesSociales,RegistroDigeek,Visitante, UserAdminApp
 
+class UserAdminAppSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserAdminApp
+        fields = '__all__'
 
 class ImagenesSerializer(serializers.ModelSerializer):
     class Meta:

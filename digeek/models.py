@@ -108,3 +108,13 @@ class Visitante(models.Model):
         db_table = 'visitante'
 
 
+class UserAdminApp(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.CharField(max_length=100)
+    password = models.CharField(max_length=255)
+    last_on = models.DateTimeField(auto_now_add=True, blank=True)
+    rol = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'user_admin_app'

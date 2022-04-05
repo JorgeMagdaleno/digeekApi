@@ -10,6 +10,16 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 
 
+class UserAdminAppApi(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, id=0):
+        userApi = UserAdminApp.objects.get(id=id)
+        my_serializer = UserAdminAppSerializer(userApi)
+        return JsonResponse(my_serializer.data, safe=False)
+
+
+
 # Create your views here.
 class CreatePost(APIView):
     parser_classes = [MultiPartParser, FormParser]
