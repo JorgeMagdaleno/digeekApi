@@ -47,7 +47,7 @@ class CreatePost(APIView):
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except DatabaseError:
-            return JsonResponse("No se pudo añadir", safe=False)
+            return Response("No se pudo añadir", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class RegistrarVisitanteBien(APIView):
 
