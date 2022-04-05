@@ -24,6 +24,7 @@ class UserAdminAppApi(APIView):
 class CreatePost(APIView):
     parser_classes = [MultiPartParser, FormParser]
 
+    @transaction.atomic
     def post(self, request, format=None):
         print(request.data)
         serializer = VisitanteSerializer(data=request.data)
