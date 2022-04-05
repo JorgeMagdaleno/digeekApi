@@ -13,8 +13,8 @@ from rest_framework.permissions import IsAuthenticated
 class UserAdminAppApi(APIView):
     permission_classes = (IsAuthenticated,)
 
-    def get(self, request, id=0):
-        userApi = UserAdminApp.objects.get(id=id)
+    def get(self, request, user=""):
+        userApi = UserAdminApp.objects.get(user=user)
         my_serializer = UserAdminAppSerializer(userApi)
         return JsonResponse(my_serializer.data, safe=False)
 
