@@ -28,23 +28,26 @@ class CreatePost(APIView):
     def post(self, request, format=None):
         print(request.data)
         serializer = VisitanteSerializer(data=request.data)
-        if serializer.is_valid():
+        try:
+            if serializer.is_valid():
 
-            visitante = serializer.save()
-            digeekObj = Digeek(digeekid=request.data["digeek"])
-            eventosObj = Eventos(eventosid=request.data["eventos"])
-            registro = RegistroDigeek(
-                digeek=digeekObj,
-                visitante=visitante,
-                eventos=eventosObj,
-                last_update=request.data["last_update"],
-                presencial=request.data["presencial"]
-            )
-            registro.save()
+                visitante = serializer.save()
+                digeekObj = Digeek(digeekid=request.data["digeek"])
+                eventosObj = Eventos(eventosid=request.data["eventos"])
+                registro = RegistroDigeek(
+                    digeek=digeekObj,
+                    visitante=visitante,
+                    eventos=eventosObj,
+                    last_update=request.data["last_update"],
+                    presencial=request.data["presencial"]
+                )
+                registro.save()
 
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except DatabaseError:
+            return JsonResponse("No se pudo añadir", safe=False)
 
 class RegistrarVisitanteBien(APIView):
 
