@@ -39,6 +39,6 @@ urlpatterns = [
     re_path(r'^editor/registrodigeek/(?P<digeekid>[0-9]+)/(?P<visitanteid>[0-9]+)$', views.RegistroDigeekAApi.as_view()),
     re_path(r'^editor/registrodigeekInsert$', views.RegistrarVisitanteBien.as_view()),
     re_path(r'^editor/test$', views.CreatePost.as_view()),
-    re_path(r'^editor/UserAdminApp/(?P<user>[0-9]+)$', views.UserAdminAppApi.as_view()),
+    re_path(r'^editor/UserAdminApp/(?P<user>\w+)', views.UserAdminAppApi.as_view()),
 
 ]
